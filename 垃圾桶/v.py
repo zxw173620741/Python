@@ -13,9 +13,6 @@ app = Flask(__name__)
 load_dotenv()
 
 
-
-
-
 #ollama函数，提供字符串用户询问词
 def ask_ollama(prompt):
     api_url = os.getenv("OLLAMA_API_URL")
@@ -107,6 +104,7 @@ def getdata():
     }
     json_str = json.dumps(ok_data, ensure_ascii=False)  # 这里关闭 ASCII 转义
     return Response(json_str, content_type='application/json; charset=utf-8')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
