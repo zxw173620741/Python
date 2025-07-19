@@ -5,19 +5,38 @@ import requests
 
 load_dotenv()
 
+#读取人设
+def load_persona_md(file_path="persona.md"):
+    """读取Markdown人设文件并返回字符串"""
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        print(f"错误：人设文件 {file_path} 不存在")
+        return ""
+    except Exception as e:
+        print(f"读取人设文件失败: {e}")
+        return ""
+
+
+
 #ollama函数，提供字符串用户询问词
 def ask_ollama(prompt,mod,question):
 
     api_url = os.getenv("OLLAMA_API_URL")
     renshe="" 
     if mod == 1:    #分析模式
-        renshe=os.getenv("OLLAMA_SYSTEM_PROMPT_fenxi")
+        renshe=load_persona_md("people/fenxi.md")
         print(prompt)
+        print(renshe)
     elif mod == 2:  #预测模式
-        renshe=os.getenv("OLLAMA_SYSTEM_PROMPT_yuce")
+        renshe=load_persona_md("people/yuce.md")
         print(prompt)
+        print(renshe)
     elif mod == 3:  #提问模式
-        renshe=os.getenv("OLLAMA_SYSTEM_PROMPT_tiwen")
+        renshe=load_persona_md("people/tiwen.md")
+        print(prompt)
+        print(renshe)
     else:           #错误提示@
         print("未检测到MOD")
     payload = {
@@ -48,3 +67,4 @@ def ask_ollama(prompt,mod,question):
         # 处理JSON解析错误
         print(f"响应JSON解析错误: {e}")
         return None
+    

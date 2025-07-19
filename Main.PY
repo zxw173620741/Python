@@ -1,6 +1,8 @@
 from process_data import *
 from flask import Flask, request
 
+from process_data import *
+
 app = Flask(__name__)
 
 
