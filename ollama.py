@@ -57,6 +57,7 @@ def ask_ollama(prompt,mod,question):
             headers={"Content-Type": "application/json"},
         )
         response.raise_for_status()  # 如果响应状态码不是200，将抛出HTTPError
+        print(os.getenv("OLLAMA_MODE"))
         return response.json()  # 假设API返回JSON格式的响应
         
     except requests.exceptions.RequestException as e:
@@ -67,4 +68,3 @@ def ask_ollama(prompt,mod,question):
         # 处理JSON解析错误
         print(f"响应JSON解析错误: {e}")
         return None
-    
